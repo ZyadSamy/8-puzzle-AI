@@ -1,4 +1,4 @@
-from bfs import bfs
+from search import bfs
 from goalTest import zero_first_test, zero_last_test
 from state import create_initial_state
 
