@@ -5,6 +5,9 @@ class Frontier:
         self.strategy = strategy
         self.frontier = deque()
 
+    def __len__(self):
+        return len(self.frontier)
+
     def pop(self):
         if (self.strategy == "dfs"):
             return self.frontier.pop()

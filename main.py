@@ -9,5 +9,6 @@ initialState = create_initial_state([
     [0,7,8]
 ])
 
+# print (initialState)
 print(bfs(initialState, zero_first_test))
 #print(bfs(initialState, zero_last_test))

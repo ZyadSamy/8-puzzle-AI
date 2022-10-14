@@ -8,6 +8,16 @@ class State:
         self.previousState = preState
         self.emptyIndex = emptyIndex
 
+    def __str__(self):
+        line = f'-------\n'
+        out = ""
+        out += line
+        for r in self.value:
+            out += f'|{r[0]}|{r[1]}|{r[1]}|\n'
+            out += line
+        return out
+        
+
     def neighbors(self) :
         (row,col) = self.emptyIndex
         actions = []

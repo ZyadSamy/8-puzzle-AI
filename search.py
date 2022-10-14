@@ -13,7 +13,7 @@ def search(initialState, goalTest, strategy):
 
         if (hashedValue in explored):
             continue
-        explored.push(hashedValue)
+        explored.add(hashedValue)
 
         if (goalTest(state.value)):
             print_goal_path(state)
@@ -21,7 +21,7 @@ def search(initialState, goalTest, strategy):
 
         for neighbor in state.neighbors():
             if hash(neighbor.value) not in explored:
-                frontier.append(neighbor)
+                frontier.push(neighbor)
 
     return False
 
