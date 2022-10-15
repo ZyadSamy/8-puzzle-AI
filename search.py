@@ -1,10 +1,10 @@
-from frontier import Frontier
+from frontier import Stack, Queue
 from state import State
 
+import time
 
-def search(initialState, goalTest, strategy): 
-    frontier = Frontier(strategy)
-    frontier.push(initialState)
+def search(frontier, goalTest): 
+    startTime = time.time()
     explored = set()
     
     while len(frontier) > 0:
@@ -16,7 +16,7 @@ def search(initialState, goalTest, strategy):
         explored.add(hashedValue)
 
         if (goalTest(state.value)):
-            print_goal_path(state)
+            print_stats(state, explored, startTime, frontier)
             return True
 
         for neighbor in state.neighbors():
@@ -36,7 +36,7 @@ def hash(arr):
     return hash/10
 
 
-def print_goal_path(state: State):
+def print_stats(state: State, explored, startTime, frontier):
     goalPath = []
     while state.previousState is not None:
         goalPath.append(state.previousAction)
@@ -45,10 +45,17 @@ def print_goal_path(state: State):
     goalPath.reverse()
     print(goalPath)
     print(f'Goal path cost: {len(goalPath)}')
+    print(f'Nodes explored: {len(explored)}')
+    print(f'Frontier size: {len(frontier)}')
+    print(f'Max frontier size: {frontier.max()}')
+    print(f'running time: {(time.time() - startTime)} s')
+
 
 
 def bfs(initialState, goalTest):
-    return search(initialState, goalTest, "bfs")
+    frontier = Queue(initialState)
+    return search(frontier, goalTest)
 
 def dfs(initialState, goalTest):
-    return search(initialState, goalTest, "dfs")
+    froniter = Stack(initialState)
+    return search(froniter, goalTest)

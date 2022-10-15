@@ -1,18 +1,24 @@
 from collections import deque
 
-class Frontier:
-    def __init__(self, strategy):
-        self.strategy = strategy
-        self.frontier = deque()
+class Queue:
+    def __init__(self, *elements):
+        self._elements = deque(elements)
+        self._maxSize = len(self._elements)
 
     def __len__(self):
-        return len(self.frontier)
+        return len(self._elements)
+
+    def push(self, element):
+        self._elements.append(element)
+        self._maxSize = max(self._maxSize, len(self._elements))
 
     def pop(self):
-        if (self.strategy == "dfs"):
-            return self.frontier.pop()
-        else:
-            return self.frontier.popleft()
-    
-    def push(self, element):
-        self.frontier.append(element)
+        return self._elements.popleft()
+
+    def max(self):
+        return self._maxSize
+
+
+class Stack(Queue):
+    def pop(self):
+        return self._elements.pop()
