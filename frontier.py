@@ -22,3 +22,5 @@ class Queue:
 class Stack(Queue):
     def pop(self):
         return self._elements.pop()
+
+

@@ -1,5 +1,6 @@
 from frontier import Stack, Queue
 from state import State
+from heapq import *
 
 import time
 
@@ -47,7 +48,7 @@ def print_stats(state: State, explored, startTime, frontier):
     print(f'Goal path cost: {len(goalPath)}')
     print(f'Nodes explored: {len(explored)}')
     print(f'Frontier size: {len(frontier)}')
-    print(f'Max frontier size: {frontier.max()}')
+    # print(f'Max frontier size: {frontier.max()}')
     print(f'running time: {(time.time() - startTime)} s')
 
 
@@ -59,3 +60,38 @@ def bfs(initialState, goalTest):
 def dfs(initialState, goalTest):
     froniter = Stack(initialState)
     return search(froniter, goalTest)
+
+def astar(initialState, goalTest, heuristic):
+    frontier = [initialState]
+    return astarhelper(frontier, goalTest, heuristic)
+
+
+
+def astarhelper(frontier, goalTest, heuristic):
+    startTime = time.time()
+    explored = set()
+
+    while len(frontier) > 0:
+        state: State = heappop(frontier)
+        hashedValue = hash(state.value)
+
+        f_value = state.depth
+
+        if heuristic == "m":
+            g_value = state.ManhattenHeuristic()
+        else:
+            g_value = state.EuclidHeuristic()
+        state.cost = f_value + g_value
+        if (hashedValue in explored):
+            continue
+        explored.add(hashedValue)
+
+        if (goalTest(state.value)):
+            print_stats(state, explored, startTime, frontier)
+            return True
+
+        for neighbor in state.neighbors():
+            if hash(neighbor.value) not in explored:
+                heappush(frontier,  neighbor)
+
+    return False
