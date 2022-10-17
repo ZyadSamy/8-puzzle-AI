@@ -9,5 +9,6 @@ initialState = create_initial_state([
 ])
 
 # print (initialState)
-dfs(initialState, zero_first_test)
+# dfs(initialState, zero_first_test)
 astar(initialState, zero_first_test, "m")
+astar(initialState, zero_first_test)

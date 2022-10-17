@@ -1,0 +1,39 @@
+All Stats Below
+
+All Strategies Statistics Combined
+
+
+BFS Statistics
+Path to Goal: ['UP', 'LEFT', 'LEFT']
+Goal path cost: 3
+Nodes explored: 16
+Frontier size: 9
+Maximum Depth: 3
+running time: 0.0 s
+
+
+DFS Statistics
+Path to Goal: ['DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'UP', 'RIGHT', 'DOWN', 'DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'UP', 'RIGHT', 'DOWN', 'DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'UP', 'LEFT']
+Goal path cost: 41
+Nodes explored: 43
+Frontier size: 36
+Maximum Depth: 41
+running time: 0.002006053924560547 s
+
+
+A* Statistics with Manhattan heuristic
+Path to Goal: ['UP', 'LEFT', 'LEFT']
+Goal path cost: 3
+Nodes explored: 9
+Frontier size: 7
+Maximum Depth: 3
+running time: 0.0009958744049072266 s
+
+
+A* Statistics with Euclidean heuristic
+Path to Goal: ['UP', 'LEFT', 'LEFT']
+Goal path cost: 3
+Nodes explored: 9
+Frontier size: 7
+Maximum Depth: 3
+running time: 0.0009975433349609375 s
