@@ -15,6 +15,7 @@ def ManhattenHeuristic(state):
                         sum += abs(i - m) + abs(j + n)
     return sum
 
+
 def EuclidHeuristic(state):
     goal = [[0, 1, 2],
             [3, 4, 5],
@@ -26,5 +27,6 @@ def EuclidHeuristic(state):
             for m in range(0, 3):
                 for n in range(0, 3):
                     if tile == goal[m][n]:
-                        sum += math.sqrt(math.pow(i - m, 2)  + math.pow(j - n, 2))
+                        sum += math.sqrt(math.pow(i - m, 2) +
+                                         math.pow(j - n, 2))
     return sum

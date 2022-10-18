@@ -37,3 +37,10 @@ Nodes explored: 9
 Frontier size: 7
 Maximum Depth: 3
 running time: 0.0009975433349609375 s
+
+Path to Goal: ['LEFT', 'LEFT']
+Goal path cost: 2
+Nodes explored: 3
+Frontier size: 2
+Maximum Depth: 2
+running time: 0.00017404556274414062 s

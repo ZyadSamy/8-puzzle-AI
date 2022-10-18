@@ -1,33 +1,42 @@
-from frontier import Stack, Queue
+from file import print_stats_to_file
+from frontier import Stack, Queue, Heap
 from heuristics import *
 from state import State
 from heapq import *
-from file import getStatsPath
 
 import time
 
-def search(frontier, goalTest): 
-    startTime = time.time()
+
+def search(frontier, initialState, goalTest):
     explored = set()
+    frontierSet = set()
+
+    frontier.push(initialState)
+    frontierSet.add(hash(initialState.value))
+
+    startTime = time.time()
     maxDepth = 0
-    
+
     while len(frontier) > 0:
-        state: State = frontier.pop()
-        hashedValue = hash(state.value)
+        state = frontier.pop()
+        stateHash = hash(state.value)
+
+        frontierSet.remove(stateHash)
+        explored.add(stateHash)
         maxDepth = max(maxDepth, state.depth)
 
-        if (hashedValue in explored):
-            continue
-        explored.add(hashedValue)
-
         if (goalTest(state.value)):
-            print_stats(state, explored, startTime, frontier, maxDepth)
+            print_stats_to_file(state, explored, startTime, frontier, maxDepth)
             return True
 
         for neighbor in state.neighbors():
-            if hash(neighbor.value) not in explored:
-                frontier.push(neighbor)
+            neighborHash = hash(neighbor.value)
 
+            if neighborHash not in explored and neighborHash not in frontierSet:
+                frontier.push(neighbor)
+                frontierSet.add(neighborHash)
+
+    print(f'No possible answer, explored: {len(explored)}')
     return False
 
 
@@ -35,80 +44,58 @@ def hash(arr):
     hash = 0
     for row in arr:
         for element in row:
-            hash += element
             hash *= 10
-
-    return hash/10
-
-
-def print_stats(state: State, explored, startTime, frontier, maxDepth):
-    goalPath = []
-    while state.previousState is not None:
-        goalPath.append(state.previousAction)
-        state = state.previousState
-
-    goalPath.reverse()
-    statsPath = getStatsPath
-    f = open("Statistics.txt", "a")
-    f.write(f"Path to Goal: {goalPath}\n")
-    f.write(f'Goal path cost: {len(goalPath)}\n')
-    f.write(f'Nodes explored: {len(explored)}\n')
-    f.write(f'Frontier size: {len(frontier)}\n')
-    f.write(f"Maximum Depth: {maxDepth}\n")
-    # f.write(f'Max frontier size: {frontier.max()}')
-    f.write(f'running time: {(time.time() - startTime)} s\n')
-    f.close()
-
+            hash += element
+    return hash
 
 
 def bfs(initialState, goalTest):
-    frontier = Queue(initialState)
-    return search(frontier, goalTest)
+    frontier = Queue()
+    return search(frontier, initialState, goalTest)
+
 
 def dfs(initialState, goalTest):
-    froniter = Stack(initialState)
-    return search(froniter, goalTest)
+    frontier = Stack()
+    return search(frontier, initialState, goalTest)
 
-def astar(initialState, goalTest, heuristic = "e"):
-    frontier = [initialState]
-    if(heuristic == "m" or heuristic == "manhattan"):
-        return astarhelper(frontier, goalTest, ManhattenHeuristic)
+
+def astar(initialState, goalTest, heuristic="e"):
+    frontier = Heap()
+    if (heuristic == "m" or heuristic == "manhattan"):
+        return astarhelper(frontier, initialState, goalTest, ManhattenHeuristic)
     else:
-        return astarhelper(frontier, goalTest, EuclidHeuristic)
+        return astarhelper(frontier, initialState, goalTest, EuclidHeuristic)
 
 
-    
-
-
-
-def astarhelper(frontier, goalTest, heuristic):
-    startTime = time.time()
+def astarhelper(frontier, initialState, goalTest, heuristic):
     explored = set()
+    frontier.push(initialState)
+
+    startTime = time.time()
     maxDepth = 0
 
     while len(frontier) > 0:
-        state: State = heappop(frontier)
-        hashedValue = hash(state.value)
+        state = frontier.pop()
+        stateHash = hash(state.value)
+
+        if (stateHash in explored):
+            continue
+
+        explored.add(stateHash)
         maxDepth = max(maxDepth, state.depth)
 
-        f_value = state.depth
-        
-        g_value = heuristic(state)
-
-        state.cost = f_value + g_value
-        if (hashedValue in explored):
-            continue
-        explored.add(hashedValue)
-
         if (goalTest(state.value)):
-            print_stats(state, explored, startTime, frontier, maxDepth)
+            print_stats_to_file(state, explored, startTime, frontier, maxDepth)
             return True
 
         for neighbor in state.neighbors():
-            if hash(neighbor.value) not in explored:
-                heappush(frontier,  neighbor)
+            neighborHash = hash(neighbor.value)
 
+            if neighborHash not in explored:
+                f_value = neighbor.depth
+                g_value = heuristic(neighbor)
+                neighbor.cost = f_value + g_value
+                frontier.push(neighbor)
+
+    print(f'No possible answer, explored: {len(explored)}')
     return False
-
-
-
