@@ -1,4 +1,4 @@
-from search import bfs, dfs, astar
+from search import bfs, dfs, astar, Solvable
 from goalTest import zero_first_test, zero_last_test
 from state import create_initial_state
 import sys
@@ -49,9 +49,7 @@ found = check_file()
 if not found:
     f = open("Statistics.txt", "x")
 
-f = open("Statistics.txt", "w")
-f.write("All Stats Below")
-f.close()
+
 
 # Convert input into a 2D array
 def convert_1d_to_2d(array):
@@ -61,9 +59,21 @@ def convert_1d_to_2d(array):
         twodarray[int(i/3)][i % 3] = array[i]
     return twodarray
 
+initialState = [int(x) for x in arrayString]
 
-initialState = convert_1d_to_2d([int(x) for x in arrayString])
+if not Solvable(initialState) :
+    print("Not Solvable.")
+    f = open("Statistics.txt", "w")
+    f.write("Not Solvable.")
+    f.close()
+    sys.exit()
+    
+initialState = convert_1d_to_2d(initialState)
 initialState = create_initial_state(initialState)
+
+f = open("Statistics.txt", "w")
+f.write("All Stats Below")
+f.close()
 
 f = open("Statistics.txt", "a")
 

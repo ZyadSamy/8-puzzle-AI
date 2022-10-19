@@ -1,10 +1,22 @@
 from file import print_stats_to_file
 from frontier import Stack, Queue, Heap
 from heuristics import *
-from state import State
 from heapq import *
 
 import time
+
+# Checks if Initial state entered is solvable or not.
+def Solvable(initialState) :
+    inversions = 0
+    for i in range(9):
+        for j in range(i+1, 9):
+            if initialState[i] == 0 or initialState[j] == 0 :
+                continue
+            if initialState[i] > initialState[j]:
+                inversions +=1
+    return inversions % 2 == 0
+        
+
 
 # DFS AND BFS
 # -----------
