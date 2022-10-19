@@ -6,11 +6,13 @@ from heapq import *
 
 import time
 
-
+# DFS AND BFS
+# -----------
 def search(frontier, initialState, goalTest):
     explored = set()
     frontierSet = set()
 
+    # Frontier varies depending on the type of search used (Stack or Queue)
     frontier.push(initialState)
     frontierSet.add(hash(initialState.value))
 
@@ -66,7 +68,7 @@ def astar(initialState, goalTest, heuristic="e"):
     else:
         return astarhelper(frontier, initialState, goalTest, EuclidHeuristic)
 
-
+# A*
 def astarhelper(frontier, initialState, goalTest, heuristic):
     explored = set()
     frontier.push(initialState)

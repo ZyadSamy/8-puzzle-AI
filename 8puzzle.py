@@ -7,7 +7,7 @@ from file import *
 argumentsLength = len(sys.argv)
 arrayString = sys.argv[1]
 strategy = sys.argv[2]
-
+# Argument validation
 if (argumentsLength < 3 or argumentsLength > 4):
     print("Please Enter Valid Arguments (Array, Strategy, Heuristic (if A*))")
     sys.exit()
@@ -51,7 +51,7 @@ f = open("Statistics.txt", "w")
 f.write("All Stats Below")
 f.close()
 
-
+# Convert input into a 2D array
 def convert_1d_to_2d(array):
 
     twodarray = [[0 for i in range(3)] for c in range(3)]

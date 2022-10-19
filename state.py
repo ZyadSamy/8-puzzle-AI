@@ -1,13 +1,13 @@
 from copy import deepcopy
 
-
+# State object
 class State:
     def __init__(self, val, preAction, preState, emptyIndex, depth=0):
-        self.value = val
+        self.value = val                # Array value
         self.previousAction = preAction
         self.previousState = preState
         self.emptyIndex = emptyIndex
-        self.depth = depth
+        self.depth = depth              # Depth, in uniform cost (1), it equals g(x)
         self.cost = 0
 
     def __str__(self):
@@ -19,9 +19,11 @@ class State:
             out += line
         return out
 
+    # Comparator for heapq
     def __gt__(self, state):
         return self.cost > state.cost
 
+    # Generate neighbors of current state
     def neighbors(self):
         (row, col) = self.emptyIndex
         actions = []
@@ -44,7 +46,7 @@ class State:
 
         return neighbors
 
-
+# Helper function to create the neighbor state
 def apply_action(state, action, r, c):
     newValue = deepcopy(state.value)
 
