@@ -5,22 +5,24 @@ import sys
 from file import *
 
 argumentsLength = len(sys.argv)
+if (argumentsLength < 3 or argumentsLength > 4):
+    print("Please Enter Valid Arguments (Array, Strategy, Heuristic (if A*))\n\n"
+          "Array example: 012345678\n\n"
+          "Strategy:\n1-bfs\n2-dfs\n3-a*\n4-all\n\n"
+          "Heuristic:\n1-manhattan or m\n2-euclidean or e")
+    sys.exit()
 arrayString = sys.argv[1]
 strategy = sys.argv[2]
 # Argument validation
-if (argumentsLength < 3 or argumentsLength > 4):
-    print("Please Enter Valid Arguments (Array, Strategy, Heuristic (if A*))")
+if (strategy != "bfs" and strategy != "dfs" and strategy != "a*" and strategy != "all"):
+    print("Please Enter Valid Strategy (bfs, dfs, a* + heuristic)")
     sys.exit()
-else:
-    if (strategy != "bfs" and strategy != "dfs" and strategy != "a*" and strategy != "all"):
-        print("Please Enter Valid Strategy (bfs, dfs, a* + heuristic)")
-        sys.exit()
-    if (strategy == "a*" and argumentsLength == 3):
-        print("Please enter a Valid Heuristic (manhattan for manhattan distance) (euclidean for euclidean distance)")
-        sys.exit()
-    elif (strategy != "a*" and argumentsLength == 4):
-        print("Please Enter Valid Arguments")
-        sys.exit()
+if (strategy == "a*" and argumentsLength == 3):
+    print("Please enter a Valid Heuristic (manhattan for manhattan distance) (euclidean for euclidean distance)")
+    sys.exit()
+elif (strategy != "a*" and argumentsLength == 4):
+    print("Please Enter Valid Arguments")
+    sys.exit()
 
 
 n = len(arrayString)

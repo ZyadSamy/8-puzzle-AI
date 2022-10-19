@@ -65,7 +65,7 @@ def astar(initialState, goalTest, heuristic="e"):
     frontier = Heap()
     if (heuristic == "m" or heuristic == "manhattan"):
         return astarhelper(frontier, initialState, goalTest, ManhattenHeuristic)
-    else:
+    elif (heuristic == "e" or heuristic == "eucildean"):
         return astarhelper(frontier, initialState, goalTest, EuclidHeuristic)
 
 # A*
