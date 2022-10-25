@@ -9,6 +9,8 @@ def ManhattenHeuristic(state):
     for i in range(0, 3):
         for j in range(0, 3):
             tile = state.value[i][j]
+            if tile == 0:
+                continue
             for m in range(0, 3):
                 for n in range(0, 3):
                     if tile == goal[m][n]:
@@ -24,6 +26,8 @@ def EuclidHeuristic(state):
     for i in range(0, 3):
         for j in range(0, 3):
             tile = state.value[i][j]
+            if tile == 0:
+                continue
             for m in range(0, 3):
                 for n in range(0, 3):
                     if tile == goal[m][n]:
