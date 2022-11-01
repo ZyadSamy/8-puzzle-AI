@@ -14,7 +14,7 @@ def ManhattenHeuristic(state):
             for m in range(0, 3):
                 for n in range(0, 3):
                     if tile == goal[m][n]:
-                        sum += abs(i - m) + abs(j + n)
+                        sum += abs(i - m) + abs(j - n)
     return sum
 
 
